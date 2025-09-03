@@ -1,22 +1,37 @@
-
 {% extends "base.html" %}
 {% block content %}
-<h2>Your repositories</h2>
-<div class="grid">
-  {% for r in repos %}
-    <div class="card">
-      <div class="card-title">
-        <a href="https://github.com/{{ r.owner.login }}/{{ r.name }}" target="_blank">{{ r.full_name }}</a>
-        {% if r.private %}<span class="tag">private</span>{% endif %}
-      </div>
-      <div class="card-body">
-        <div class="muted">{{ r.description or "No description" }}</div>
-        <div class="muted">Updated: {{ r.pushed_at }}</div>
-      </div>
-      <div class="card-actions">
-        <a class="btn" href="{{ url_for('generate', owner=r.owner.login, repo=r.name) }}">Generate README</a>
-      </div>
+<section>
+  <h2>Your repositories</h2>
+
+  {% if repos|length == 0 %}
+    <p class="muted">No repositories found.</p>
+  {% else %}
+    <div class="repos-grid">
+      {% for r in repos %}
+        <article class="repo-card">
+          <header class="repo-head">
+            <a class="repo-title" href="https://github.com/{{ r.owner.login }}/{{ r.name }}" target="_blank" rel="noreferrer">
+              {{ r.full_name }}
+            </a>
+            {% if r.private %}<span class="repo-tag">Private</span>{% else %}<span class="repo-tag neutral">Public</span>{% endif %}
+          </header>
+
+          <p class="repo-desc">{{ r.description or "—" }}</p>
+
+          <div class="repo-meta">
+            <span>Updated: {{ r.pushed_at }}</span>
+            {% if r.language %}<span>• {{ r.language }}</span>{% endif %}
+            {% if r.license and r.license.spdx_id %}<span>• {{ r.license.spdx_id }}</span>{% endif %}
+          </div>
+
+          <div class="repo-actions">
+            <a class="btn primary" href="{{ url_for('generate', owner=r.owner.login, repo=r.name) }}">
+              Generate README
+            </a>
+          </div>
+        </article>
+      {% endfor %}
     </div>
-  {% endfor %}
-</div>
+  {% endif %}
+</section>
 {% endblock %}
