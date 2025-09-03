@@ -167,3 +167,80 @@ a:hover { text-decoration: underline; }
   color: var(--muted);
   font-size: 14px;
 }
+
+/* DASHBOARD – responsive cards */
+h2 { margin: 10px 0 16px; }
+
+.repos-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.repo-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.repo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+  border-color: rgba(0,0,0,0.08);
+}
+
+.repo-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.repo-title {
+  font-weight: 700;
+  color: var(--text);
+  word-break: break-word;
+}
+
+.repo-tag {
+  font-size: 12px;
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text);
+  background: rgba(0,0,0,0.04);
+}
+:root[data-theme="dark"] .repo-tag { background: rgba(255,255,255,0.06); }
+.repo-tag.neutral { opacity: .8; }
+
+.repo-desc {
+  color: var(--muted);
+  margin: 0;
+  overflow-wrap: anywhere;
+  min-height: 1.5em;
+}
+
+.repo-meta {
+  color: var(--muted);
+  font-size: 13px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.repo-actions {
+  margin-top: 8px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.repo-actions .btn.primary {
+  padding: 9px 14px;
+  border-radius: 10px;
+}
