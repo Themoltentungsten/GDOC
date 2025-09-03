@@ -1,0 +1,22 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2>Your repositories</h2>
+<div class="grid">
+  {% for r in repos %}
+    <div class="card">
+      <div class="card-title">
+        <a href="https://github.com/{{ r.owner.login }}/{{ r.name }}" target="_blank">{{ r.full_name }}</a>
+        {% if r.private %}<span class="tag">private</span>{% endif %}
+      </div>
+      <div class="card-body">
+        <div class="muted">{{ r.description or "No description" }}</div>
+        <div class="muted">Updated: {{ r.pushed_at }}</div>
+      </div>
+      <div class="card-actions">
+        <a class="btn" href="{{ url_for('generate', owner=r.owner.login, repo=r.name) }}">Generate README</a>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

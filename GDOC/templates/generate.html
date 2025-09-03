@@ -1,0 +1,23 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2>Preview & Commit README.md — {{ owner }}/{{ repo }}</h2>
+<div class="grid two">
+  <div>
+    <h3>Preview</h3>
+    <article class="preview">{{ html_preview|safe }}</article>
+  </div>
+  <div>
+    <h3>Markdown</h3>
+    <form method="POST" action="{{ url_for('commit') }}">
+      <input type="hidden" name="owner" value="{{ owner }}"/>
+      <input type="hidden" name="repo" value="{{ repo }}"/>
+      <label>Commit message</label>
+      <input name="message" value="docs: add professional README via gh-readme-docs app"/>
+      <label>README.md Content</label>
+      <textarea name="content" rows="28">{{ md }}</textarea>
+      <button class="btn primary" type="submit">Commit README to GitHub</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

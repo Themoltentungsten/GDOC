@@ -1,0 +1,10 @@
+
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <h1>Generate a Professional README for Any Repo</h1>
+  <p>Authenticate with GitHub, pick a repository, preview a beautiful README.md (like the screenshots), and commit it back in one click.</p>
+  <p><a class="btn primary" href="{{ url_for('login') }}">Login with GitHub</a></p>
+  <div class="muted">We never store your token; it's kept in your session only.</div>
+</section>
+{% endblock %}
