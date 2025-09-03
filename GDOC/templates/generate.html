@@ -1,23 +1,67 @@
+<div>
+  <h3>Markdown</h3>
 
-{% extends "base.html" %}
-{% block content %}
-<h2>Preview & Commit README.md — {{ owner }}/{{ repo }}</h2>
-<div class="grid two">
-  <div>
-    <h3>Preview</h3>
-    <article class="preview">{{ html_preview|safe }}</article>
-  </div>
-  <div>
-    <h3>Markdown</h3>
-    <form method="POST" action="{{ url_for('commit') }}">
+  <div class="md-editor">
+    <div class="md-toolbar">
+      <span class="muted">README.md</span>
+      <div class="md-actions">
+        <button class="btn" type="button" id="mdCopy">Copy</button>
+        <button class="btn" type="button" id="mdDownload">Download</button>
+      </div>
+    </div>
+
+    <form method="POST" action="{{ url_for('commit') }}" class="md-form">
       <input type="hidden" name="owner" value="{{ owner }}"/>
       <input type="hidden" name="repo" value="{{ repo }}"/>
-      <label>Commit message</label>
-      <input name="message" value="docs: add professional README via gh-readme-docs app"/>
-      <label>README.md Content</label>
-      <textarea name="content" rows="28">{{ md }}</textarea>
-      <button class="btn primary" type="submit">Commit README to GitHub</button>
+
+      <label class="md-label">Commit message</label>
+      <input name="message"
+             value="docs: add professional README via gh-readme-docs app"
+             class="md-input"/>
+
+      <label class="md-label">README.md Content</label>
+      <textarea name="content" id="mdArea" class="md-textarea" spellcheck="false">{{ md }}</textarea>
+
+      <div class="md-submit">
+        <button class="btn primary" type="submit">Commit README to GitHub</button>
+      </div>
     </form>
   </div>
 </div>
-{% endblock %}
+
+<!-- Editor helpers -->
+<script>
+  // autosize textarea to content
+  const ta = document.getElementById('mdArea');
+  function fit() { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; }
+  window.addEventListener('load', fit);
+  ta.addEventListener('input', fit);
+
+  // Tab inserts 2 spaces
+  ta.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const { selectionStart: s, selectionEnd: ePos, value } = ta;
+      ta.value = value.substring(0, s) + '  ' + value.substring(ePos);
+      ta.selectionStart = ta.selectionEnd = s + 2;
+      fit();
+    }
+  });
+
+  // Copy
+  document.getElementById('mdCopy').addEventListener('click', async () => {
+    await navigator.clipboard.writeText(ta.value);
+    const btn = document.getElementById('mdCopy'); const old = btn.textContent;
+    btn.textContent = 'Copied ✓'; setTimeout(()=>btn.textContent = old, 1200);
+  });
+
+  // Download README.md
+  document.getElementById('mdDownload').addEventListener('click', () => {
+    const blob = new Blob([ta.value], {type: 'text/markdown;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'README.md';
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  });
+</script>
