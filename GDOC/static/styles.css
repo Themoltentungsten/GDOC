@@ -38,8 +38,9 @@ a:hover { text-decoration: underline; }
   font-size: 20px;
 }
 
+/* Header logo size */
 .logo {
-  height: 40px; /* unified size */
+  height: 48px;   /* was 32–40px; bump it up */
   width: auto;
 }
 
