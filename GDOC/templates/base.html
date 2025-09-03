@@ -4,20 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>GDOC · GitHub README Docs</title>
-    <meta name="description" content="Authenticate with GitHub, auto-generate a professional README.md, and commit it back with one click." />
-    <meta name="theme-color" content="#111827" />
+    <meta name="theme-color" content="#181717" />
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
   </head>
   <body>
-    <div class="bg-grid"></div>
-
     <header class="container header">
-      <a class="brand" href="{{ url_for('index') }}">📘 GDOC</a>
-
-      <div class="dev-pill">
-        Developer: <a href="https://github.com/Themoltentungsten" target="_blank">@Moltentungsten</a>
+      <div class="brand">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="GDOC" class="logo" />
+        <span class="brand-text">GDOC</span>
       </div>
-
       <nav class="nav">
         {% if session.get("token") %}
           <a href="{{ url_for('dashboard') }}">Dashboard</a>
