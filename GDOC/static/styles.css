@@ -1,13 +1,27 @@
+/* THEME VARIABLES */
 :root {
+  /* Light theme (default) */
   --bg: #ffffff;
   --text: #181717;
   --muted: #4b5563;
   --card: #f9f9f9;
   --border: #e5e7eb;
-  --accent: #181717; /* GitHub black */
-  --accent2: #6e7681; /* muted gray */
+  --accent: #181717;      /* GitHub black */
+  --accent2: #6e7681;     /* muted gray */
 }
 
+/* Dark theme overrides */
+:root[data-theme="dark"] {
+  --bg: #0b1117;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --card: #111827;
+  --border: #1f2937;
+  --accent: #e5e7eb;
+  --accent2: #9ca3af;
+}
+
+/* GLOBAL */
 * { box-sizing: border-box; }
 
 body {
@@ -22,7 +36,7 @@ a:hover { text-decoration: underline; }
 
 .container { max-width: 1120px; margin: 0 auto; padding: 20px; }
 
-/* Header */
+/* HEADER & FOOTER */
 .header, .footer {
   display: flex;
   justify-content: space-between;
@@ -40,7 +54,7 @@ a:hover { text-decoration: underline; }
 
 /* Header logo size */
 .logo {
-  height: 48px;   /* was 32–40px; bump it up */
+  height: 48px;   /* prominent header logo */
   width: auto;
 }
 
@@ -52,7 +66,7 @@ a:hover { text-decoration: underline; }
   font-weight: 500;
 }
 
-/* Buttons */
+/* BUTTONS */
 .btn {
   padding: 8px 14px;
   border: 1px solid var(--accent);
@@ -62,13 +76,13 @@ a:hover { text-decoration: underline; }
 
 .btn.primary {
   background: var(--accent);
-  color: white;
+  color: var(--bg);
   font-weight: 600;
 }
 
 .btn.primary:hover {
   background: var(--text);
-  color: white;
+  color: var(--bg);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
@@ -77,7 +91,7 @@ a:hover { text-decoration: underline; }
   background: var(--border);
 }
 
-/* Hero */
+/* HERO */
 .hero {
   text-align: center;
   padding: 70px 0 40px;
@@ -96,7 +110,7 @@ a:hover { text-decoration: underline; }
   margin: 0 auto 24px;
 }
 
-/* CTA buttons */
+/* CTA */
 .cta {
   display: flex;
   gap: 14px;
@@ -104,7 +118,7 @@ a:hover { text-decoration: underline; }
   margin: 24px 0;
 }
 
-/* Features grid */
+/* FEATURES GRID */
 .features {
   display: grid;
   gap: 20px;
@@ -117,7 +131,7 @@ a:hover { text-decoration: underline; }
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 16px;
-  transition: transform .2s ease, box-shadow .2s ease;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s, border-color .2s;
 }
 
 .card:hover {
@@ -135,7 +149,7 @@ a:hover { text-decoration: underline; }
   color: var(--muted);
 }
 
-/* Flash messages */
+/* FLASH MESSAGES */
 .flash {
   padding: 10px 12px;
   border-radius: 8px;
@@ -145,7 +159,7 @@ a:hover { text-decoration: underline; }
 .flash.success { background: #e6ffed; border: 1px solid #34d399; }
 .flash.danger  { background: #ffe6e6; border: 1px solid #ef4444; }
 
-/* Footer */
+/* FOOTER */
 .footer {
   border-top: 1px solid var(--border);
   margin-top: 40px;
