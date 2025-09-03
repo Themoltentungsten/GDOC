@@ -7,45 +7,148 @@
   --accent: #181717; /* GitHub black */
   --accent2: #6e7681; /* muted gray */
 }
-.logo {
-  height: 40px;
-  width: auto;
-}
-* { box-sizing: border-box; }
-body { margin:0; background: var(--bg); color: var(--text);
-  font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial; }
 
-a { color: var(--accent); text-decoration:none; }
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
+}
+
+a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 .container { max-width: 1120px; margin: 0 auto; padding: 20px; }
 
-.header, .footer { display:flex; justify-content:space-between; align-items:center; gap:16px; }
-.brand { display:flex; align-items:center; gap:8px; font-weight: 800; font-size: 20px; }
-.logo { height: 32px; }
+/* Header */
+.header, .footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.logo {
+  height: 40px; /* unified size */
+  width: auto;
+}
+
 .brand-text { color: var(--accent); }
 
-.nav a { margin-left: 12px; color: var(--text); font-weight: 500; }
+.nav a {
+  margin-left: 12px;
+  color: var(--text);
+  font-weight: 500;
+}
 
-.btn { padding: 8px 14px; border: 1px solid var(--accent); border-radius: 8px;
-  transition: background .2s, color .2s; }
-.btn.primary { background: var(--accent); color: white; }
-.btn.primary:hover { background: var(--text); color:white; }
-.btn:hover { background: var(--border); }
+/* Buttons */
+.btn {
+  padding: 8px 14px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  transition: all .2s ease;
+}
 
-.hero { text-align:center; padding: 70px 0 40px; }
-.hero h1 { font-size: clamp(28px, 6vw, 52px); font-weight: 800; margin-bottom: 12px; }
-.hero .sub { color: var(--muted); max-width: 720px; margin: 0 auto 24px; }
+.btn.primary {
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+}
 
-.cta { display:flex; gap:14px; justify-content:center; margin: 24px 0; }
+.btn.primary:hover {
+  background: var(--text);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
 
-.features { display:grid; gap:20px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin: 30px 0; }
-.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 16px; }
-.card h3 { margin-top:0; font-size: 18px; font-weight: 600; }
-.card p { color: var(--muted); }
+.btn:hover {
+  background: var(--border);
+}
 
-.flash { padding: 10px 12px; border-radius: 8px; margin-bottom: 12px; }
-.flash.success { background: #e6ffed; border:1px solid #34d399; }
-.flash.danger { background: #ffe6e6; border:1px solid #ef4444; }
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 70px 0 40px;
+}
 
-.footer { border-top:1px solid var(--border); margin-top:40px; padding-top:16px; color: var(--muted); font-size:14px; }
+.hero h1 {
+  font-size: clamp(28px, 6vw, 52px);
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.hero .sub {
+  color: var(--muted);
+  max-width: 720px;
+  margin: 0 auto 24px;
+}
+
+/* CTA buttons */
+.cta {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin: 24px 0;
+}
+
+/* Features grid */
+.features {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin: 30px 0;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+  margin-top: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.card p {
+  color: var(--muted);
+}
+
+/* Flash messages */
+.flash {
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.flash.success { background: #e6ffed; border: 1px solid #34d399; }
+.flash.danger  { background: #ffe6e6; border: 1px solid #ef4444; }
+
+/* Footer */
+.footer {
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+  padding-top: 16px;
+  color: var(--muted);
+  font-size: 14px;
+}
