@@ -1,21 +1,29 @@
-
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GDOC</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>GDOC · GitHub README Docs</title>
+    <meta name="description" content="Authenticate with GitHub, auto-generate a professional README.md, and commit it back with one click." />
+    <meta name="theme-color" content="#111827" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
   </head>
   <body>
+    <div class="bg-grid"></div>
+
     <header class="container header">
       <a class="brand" href="{{ url_for('index') }}">📘 GDOC</a>
-      <nav>
+
+      <div class="dev-pill">
+        Developer: <a href="https://github.com/Themoltentungsten" target="_blank">@Moltentungsten</a>
+      </div>
+
+      <nav class="nav">
         {% if session.get("token") %}
           <a href="{{ url_for('dashboard') }}">Dashboard</a>
-          <a href="{{ url_for('logout') }}">Logout</a>
+          <a class="btn" href="{{ url_for('logout') }}">Logout</a>
         {% else %}
-          <a class="btn" href="{{ url_for('login') }}">Login with GitHub</a>
+          <a class="btn primary" href="{{ url_for('login') }}">Login with GitHub</a>
         {% endif %}
       </nav>
     </header>
@@ -32,7 +40,12 @@
     </main>
 
     <footer class="container footer">
-      <p>Made with ❤️ — <a href="https://github.com">GitHub</a> OAuth + Flask · <a href="/heartbeat">status</a></p>
+      <p>© <span id="year"></span> <strong>MOLTENTUNGSTEN</strong>. All rights reserved.</p>
+      <p><a href="/heartbeat">status</a></p>
     </footer>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>
