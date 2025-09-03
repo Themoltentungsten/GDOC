@@ -4,20 +4,31 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>GDOC · GitHub README Docs</title>
-    <meta name="theme-color" content="#181717" />
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+
+    <!-- Theme color (updated by script below) -->
+    <meta id="theme-color-meta" name="theme-color" content="#181717" />
+
+    <!-- Favicons (put square PNGs in GDOC/static/) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='favicon-192.png') }}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ url_for('static', filename='favicon-512.png') }}">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
   </head>
   <body>
     <header class="container header">
       <div class="brand">
-        <!-- Top-left logo -->
-        <a href="{{ url_for('index') }}">
+        <a class="brand-link" href="{{ url_for('index') }}" aria-label="GDOC home">
           <img src="{{ url_for('static', filename='logo.png') }}" alt="GDOC" class="logo" />
         </a>
       </div>
+
       <nav class="nav">
+        <!-- Theme toggle -->
+        <button id="themeToggle" class="btn" type="button" aria-label="Toggle theme">☾</button>
+
         {% if session.get("token") %}
           <a href="{{ url_for('dashboard') }}">Dashboard</a>
           <a class="btn" href="{{ url_for('logout') }}">Logout</a>
@@ -36,8 +47,47 @@
       <p><a href="/heartbeat">status</a></p>
     </footer>
 
+    <!-- THEME: apply saved/OS preference ASAP -->
     <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
+      (function () {
+        const key = 'gdoc-theme';
+        const saved = localStorage.getItem(key);
+        const prefersDark = window.matchMedia &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = saved || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+        // sync meta theme-color with our CSS variables
+        const meta = document.getElementById('theme-color-meta');
+        const updateMeta = () => {
+          const style = getComputedStyle(document.documentElement);
+          meta.setAttribute('content', style.getPropertyValue('--bg').trim());
+        };
+        updateMeta();
+        window.__gdoc_updateThemeColor = updateMeta;
+      })();
+    </script>
+
+    <!-- THEME: toggle + persist -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const key = 'gdoc-theme';
+        const btn = document.getElementById('themeToggle');
+        const setBtnIcon = (t) => btn.textContent = t === 'dark' ? '☀' : '☾';
+
+        const current = document.documentElement.getAttribute('data-theme') || 'light';
+        setBtnIcon(current);
+
+        btn.addEventListener('click', () => {
+          const cur = document.documentElement.getAttribute('data-theme') || 'light';
+          const next = cur === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem(key, next);
+          setBtnIcon(next);
+          if (window.__gdoc_updateThemeColor) window.__gdoc_updateThemeColor();
+        });
+      });
     </script>
   </body>
 </html>
